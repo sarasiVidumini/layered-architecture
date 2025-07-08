@@ -327,13 +327,13 @@ public class PlaceOrderFormController {
             new Alert(Alert.AlertType.ERROR, "Order has not been placed successfully").show();
         }
 
-//        orderId = generateNewOrderId();
-//        lblId.setText("Order Id: " + orderId);
-//        cmbCustomerId.getSelectionModel().clearSelection();
-//        cmbItemCode.getSelectionModel().clearSelection();
-//        tblOrderDetails.getItems().clear();
-//        txtQty.clear();
-//        calculateTotal();
+        orderId = generateNewOrderId();
+        lblId.setText("Order Id: " + orderId);
+        cmbCustomerId.getSelectionModel().clearSelection();
+        cmbItemCode.getSelectionModel().clearSelection();
+        tblOrderDetails.getItems().clear();
+        txtQty.clear();
+        calculateTotal();
     }
 
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
