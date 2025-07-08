@@ -15,4 +15,5 @@ public class OrderDAOImpl {
         return rst.next() ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1)) : "OID-001";
     }
 
+
 }

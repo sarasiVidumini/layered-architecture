@@ -18,7 +18,8 @@ public class ItemDAOImpl {
            String code =  rst.getString("code");
            String desc = rst.getString("description");
            BigDecimal unitPrice =  rst.getBigDecimal("unitPrice");
-           int quantityOnHand = rst.getInt("qtyOnHand");
+           int qtyOnHand = rst.getInt("qtyOnHand");
+           items.add(new ItemDTO(code, desc, unitPrice, qtyOnHand));
         }
         return items;
     }
