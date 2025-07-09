@@ -90,10 +90,6 @@ public class ItemDAOImpl {
         return null;
     }
 
-    public  String getLastItemId(TableView<ItemTM> tblItems) {
-        List<ItemTM> tempItemsList = new ArrayList<>(tblItems.getItems());
-        Collections.sort(tempItemsList, (o1, o2) -> o1.getCode().compareTo(o2.getCode()));
-        return tempItemsList.get(tempItemsList.size() - 1).getCode();
-    }
+
 
 }
