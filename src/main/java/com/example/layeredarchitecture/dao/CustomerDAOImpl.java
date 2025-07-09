@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CustomerDAOImpl {
+public class CustomerDAOImpl implements CustomerDAO {
+    @Override
     public ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         Statement stm = connection.createStatement();
@@ -26,6 +27,7 @@ public class CustomerDAOImpl {
        return customers;
     }
 
+    @Override
     public void saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("INSERT INTO Customer (id,name, address) VALUES (?,?,?)");
@@ -35,6 +37,7 @@ public class CustomerDAOImpl {
         pstm.executeUpdate();
     }
 
+    @Override
     public void updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("UPDATE Customer SET name=?, address=? WHERE id=?");
@@ -44,6 +47,7 @@ public class CustomerDAOImpl {
         pstm.executeUpdate();
     }
 
+    @Override
     public void deleteCustomer(String id) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE id=?");
@@ -51,6 +55,7 @@ public class CustomerDAOImpl {
         pstm.executeUpdate();
     }
 
+    @Override
     public boolean getExitCustomer(String id) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
@@ -58,6 +63,7 @@ public class CustomerDAOImpl {
         return pstm.executeQuery().next();
     }
 
+    @Override
     public String getGenerateNewId() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         ResultSet rst = connection.createStatement().executeQuery("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");
@@ -71,6 +77,7 @@ public class CustomerDAOImpl {
         }
     }
 
+    @Override
     public CustomerDTO searchCustomer(String newValue) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
@@ -82,6 +89,7 @@ public class CustomerDAOImpl {
         return null;
     }
 
+    @Override
     public String getLastCustomerId(TableView<CustomerTM> tblCustomers) {
         List<CustomerTM> tempCustomersList = new ArrayList<>(tblCustomers.getItems());
         Collections.sort(tempCustomersList);
