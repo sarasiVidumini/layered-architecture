@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 
 public class OrderDetailTM{
+    private String orderId;
     private String code;
     private String description;
     private int qty;
@@ -13,12 +14,20 @@ public class OrderDetailTM{
     public OrderDetailTM() {
     }
 
-    public OrderDetailTM(String code, String description, int qty, BigDecimal unitPrice, BigDecimal total) {
+    public OrderDetailTM(String orderId , String code, String description, int qty, BigDecimal unitPrice, BigDecimal total) {
+        this.orderId = orderId;
         this.code = code;
         this.description = description;
         this.qty = qty;
         this.unitPrice = unitPrice;
         this.total = total;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getCode() {
