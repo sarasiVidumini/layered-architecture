@@ -3,9 +3,12 @@ package com.example.layeredarchitecture.dao;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.view.tdm.CustomerTM;
+import javafx.scene.control.TableView;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class CustomerDAOImpl {
     public ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException {
@@ -66,6 +69,23 @@ public class CustomerDAOImpl {
         } else {
             return "C00-001";
         }
+    }
+
+    public CustomerDTO searchCustomer(String newValue) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
+        pstm.setString(1, newValue + "");
+        ResultSet rst = pstm.executeQuery();
+        if (rst.next()) {
+            return new CustomerDTO(newValue + "", rst.getString("name"), rst.getString("address"));
+        }
+        return null;
+    }
+
+    public String getLastCustomerId(TableView<CustomerTM> tblCustomers) {
+        List<CustomerTM> tempCustomersList = new ArrayList<>(tblCustomers.getItems());
+        Collections.sort(tempCustomersList);
+        return tempCustomersList.get(tempCustomersList.size() - 1).getId();
     }
 }
 

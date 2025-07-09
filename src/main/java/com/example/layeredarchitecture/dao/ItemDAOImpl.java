@@ -2,10 +2,14 @@ package com.example.layeredarchitecture.dao;
 
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.ItemDTO;
+import com.example.layeredarchitecture.view.tdm.ItemTM;
+import javafx.scene.control.TableView;
 
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ItemDAOImpl {
     public  ArrayList<ItemDTO> getLoadAllItems() throws SQLException, ClassNotFoundException {
@@ -68,6 +72,28 @@ public class ItemDAOImpl {
         } else {
             return "I00-001";
         }
+    }
+
+    public ItemDTO searchItem(String code) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
+        pstm.setString(1, code);
+        ResultSet rst = pstm.executeQuery();
+        if (rst.next()) {
+            return new ItemDTO(
+                    rst.getString("code"),
+                    rst.getString("description"),
+                    rst.getBigDecimal("unitPrice"),
+                    rst.getInt("qtyOnHand")
+            );
+        }
+        return null;
+    }
+
+    public  String getLastItemId(TableView<ItemTM> tblItems) {
+        List<ItemTM> tempItemsList = new ArrayList<>(tblItems.getItems());
+        Collections.sort(tempItemsList, (o1, o2) -> o1.getCode().compareTo(o2.getCode()));
+        return tempItemsList.get(tempItemsList.size() - 1).getCode();
     }
 
 }

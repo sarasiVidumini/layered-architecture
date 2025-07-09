@@ -258,4 +258,9 @@ public class ManageItemsFormController {
         }
         return "I00-001";
     }
+
+    private String getLastItemId() {
+        ItemDAOImpl itemDAO = new ItemDAOImpl();
+        return itemDAO.getLastItemId(tblItems);
+    }
 }
